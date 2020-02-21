@@ -3,11 +3,23 @@ var keys = require("./keys.js");
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 var axios = require("axios");
-//require in fs 
+//require in fs
+var fs = require('fs');
 //step 9
+if(process.argv[2] === "movie-this"){
+  moviethis(process.argv[3]);
+};
+if(process.argv[2] === "concert-this"){
+  bandsintown(artist);
+}
 
-function bandsintown(){
-    //will be using axios
+function bandsintown(artist){
+  //will be using axios
+axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp").then(
+  function(response){
+    console.log(response.data.)
+
+})
 
 }
 
@@ -17,21 +29,25 @@ function spotify(){
 
 function moviethis(moviename){
     console.log("movie works");
-    console.log("http://www.omdbapi.com/?t="+moviename+"s&y=&plot=short&apikey=trilogy")
     
 
 // Then run a request with axios to the OMDB API with the movie specified
 axios.get("http://www.omdbapi.com/?t="+ moviename+"&y=&plot=short&apikey=trilogy").then(
   function(response) {
       //title
-      console.log("Title: "+response.data.Title)
+      console.log("Title: "+response.data.Title);
       //year
+      console.log("Year: "+response.data.Year);
       //rating
+      console.log("Rating: "+ response.data.Rated);
       //country
+      console.log("Country: "+response.data.Country);
       //lang
+      console.log("Language: "+response.data.Language);
       //plot
+      console.log("Plot: "+response.data.Plot);
       //actors
-    console.log("The movie's rating is: " + response.data.imdbRating);
+      console.log("Actors: "+response.data.Actors);
   })
   .catch(function(error) {
     if (error.response) {
@@ -59,5 +75,3 @@ axios.get("http://www.omdbapi.com/?t="+ moviename+"&y=&plot=short&apikey=trilogy
 function dowhatitsays(){
 
 }
-
-moviethis("frozen");
