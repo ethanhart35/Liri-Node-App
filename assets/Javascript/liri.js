@@ -10,16 +10,20 @@ if(process.argv[2] === "movie-this"){
   moviethis(process.argv[3]);
 };
 if(process.argv[2] === "concert-this"){
-  bandsintown(artist);
+  bandsintown(process.argv[3]);
 }
 
 function bandsintown(artist){
   //will be using axios
 axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp").then(
   function(response){
-    console.log(response.data.)
-
+    for(var i = 0; i < response.data.length; i++){
+      console.log("Venue Name: "+response.data[i].venue.name);
+      console.log("Venue Location: "+response.data[i].venue.city+" "+response.data[i].venue.region);
+      console.log("Date: "+response.data[i].datetime);
+    }
 })
+
 
 }
 
